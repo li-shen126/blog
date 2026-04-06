@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Yiban 的 blog - hello world</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+
+<!-- 导航栏 -->
+<div class="navbar glass">
+  <div class="nav-logo">Yiban博客</div>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="articles.html">文章</a>
+  </div>
+  <button class="theme-toggle" id="themeBtn">暗黑模式</button>
+</div>
+
+<div class="container">
+  <div class="card glass article-page">
+
+    <!-- 文章标题 -->
+    <h1>Hello World</h1>
+
+    <!-- 返回按钮 -->
+    <a href="articles.html" class="back-btn">← 返回文章列表</a>
+
+    <!-- 文章内容（自由写） -->
+    <div class="content">
+      <p>这是我的第n个博客 之前尝试过很多的无脑建站工具 但是都不如自己写一个</p>
+      
+      <p>这个博客源码我已经开源 想下载的话可以去我的github主页下载 记得点个star哦</p>
+      <p>本博客部署于cloudflare pages 想要建同款博客的可以看我bilibili视频或者微信联系我</p>
+      <img src="images/favicon.png" style="width:100%;border-radius:12px;margin:20px 0;">
+      
+
+    </div>
+
+  </div>
+</div>
+
+<!-- 暗黑模式脚本（必须有） -->
+<script>
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+
+  btn.addEventListener('click', () => {
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '暗黑模式';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '浅色模式';
+    }
+  });
+</script>
+
+</body>
+</html>

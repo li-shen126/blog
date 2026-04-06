@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Yiban 的 blog - Windows毛玻璃效果实现教程</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+
+<!-- 导航栏 -->
+<div class="navbar glass">
+  <div class="nav-logo">Yiban博客</div>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="articles.html">文章</a>
+  </div>
+  <button class="theme-toggle" id="themeBtn">暗黑模式</button>
+</div>
+
+<div class="container">
+  <div class="card glass article-page">
+
+    <!-- 文章标题 -->
+    <h1>Hello World</h1>
+
+    <!-- 返回按钮 -->
+    <a href="articles.html" class="back-btn">← 返回文章列表</a>
+
+    <!-- 文章内容（自由写） -->
+    <div class="content">
+  <p>下面是毛玻璃核心CSS代码：</p>
+
+<pre><code>/* 毛玻璃 */
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--card-border);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.bio {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.contact {
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.btn {
+  background: var(--btn-bg);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid var(--card-border);
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.8;
+}</code></pre>
+
+</div>
+  </div>
+</div>
+
+<!-- 暗黑模式脚本（必须有） -->
+<script>
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+
+  btn.addEventListener('click', () => {
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '暗黑模式';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '浅色模式';
+    }
+  });
+</script>
+
+</body>
+</html>

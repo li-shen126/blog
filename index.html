@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Yiban 的 blog</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+
+<div class="navbar glass">
+  <div class="nav-logo">Yiban的博客</div>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="articles.html">文章</a>
+  </div>
+  <button class="theme-toggle" id="themeBtn">暗黑模式</button>
+</div>
+
+<div class="container">
+  <div class="card glass">
+    <div class="avatar">
+      <img src="images/favicon.png" alt="头像">
+    </div>
+    <h1> Yiban</h1>
+    <p class="bio">热爱编程、分享技术与生活</p>
+
+    <div class="contact">
+      <p>邮箱：bxhnmthm@gmail.com</p>
+      <p>微信：BXlishen114514</p>
+    </div>
+
+    <div class="links">
+      <a href="https://github.com/" target="_blank" class="btn">GitHub</a>
+      <a href="https://bilibili.com/" target="_blank" class="btn">哔哩哔哩</a>
+      <a href="articles.html" class="btn">我的文章</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+
+  btn.addEventListener('click', () => {
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '暗黑模式';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '浅色模式';
+    }
+  });
+</script>
+
+</body>
+</html>
