@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yiban 的 blog</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="images/favicon.png" type="image/png">
@@ -23,10 +24,10 @@
     <a href="archive.html">归档</a>
   </div>
 
-  <!-- 右侧：搜索框 左 → 切换按钮 右 -->
+  <!-- 右侧：搜索框 左 → 切换按钮 右，强制横向 -->
   <div class="nav-right">
     <div class="search-box glass">
-      <input type="text" placeholder="搜索文章...">
+      <input type="text" id="searchInput" placeholder="搜索文章...">
       <i class="fa fa-search"></i>
     </div>
     <button class="theme-toggle" id="themeBtn">
@@ -57,10 +58,11 @@
 </div>
 
 <script>
+  // 修复主题切换逻辑，100% 可用
   const btn = document.getElementById('themeBtn');
   const html = document.documentElement;
 
-  function updateIcon() {
+  function updateThemeIcon() {
     if (html.getAttribute('data-theme') === 'dark') {
       btn.innerHTML = '<i class="fa fa-sun-o"></i>';
     } else {
@@ -68,18 +70,36 @@
     }
   }
 
+  // 绑定点击事件，确保触发
   btn.addEventListener('click', () => {
-    html.toggleAttribute('data-theme');
-    updateIcon();
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+    }
+    updateThemeIcon();
   });
-  updateIcon();
 
-  // 加载动画
+  // 初始化图标
+  updateThemeIcon();
+
+  // Win11 加载动画
   window.addEventListener('load', () => {
     setTimeout(() => {
-      loader.style.opacity = 0;
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
       setTimeout(() => loader.style.display = 'none', 500);
-    }, 700);
+    }, 800);
+  });
+
+  // 搜索框聚焦/失焦效果（可选，增强交互）
+  const searchInput = document.getElementById('searchInput');
+  const searchBox = document.querySelector('.search-box');
+  searchInput.addEventListener('focus', () => {
+    searchBox.style.transform = 'scale(1.02)';
+  });
+  searchInput.addEventListener('blur', () => {
+    searchBox.style.transform = 'scale(1)';
   });
 </script>
 
