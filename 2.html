@@ -5,33 +5,45 @@
   <title>Yiban 的 blog - Windows毛玻璃效果实现教程</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
+<!-- Win11 加载动画 -->
+<div class="win11-loader" id="loader">
+  <div class="win11-spinner"></div>
+</div>
+
 <!-- 导航栏 -->
 <div class="navbar glass">
-  <div class="nav-logo">Yiban博客</div>
+  <div class="nav-logo">Yiban的博客</div>
   <div class="nav-links">
     <a href="index.html">首页</a>
     <a href="articles.html">文章</a>
+    <a href="archive.html">归档</a>
   </div>
-  <button class="theme-toggle" id="themeBtn">暗黑模式</button>
+
+  <div class="nav-right">
+    <button class="theme-toggle glass" id="themeBtn">
+      <i class="fa fa-moon-o"></i>
+    </button>
+  </div>
 </div>
 
 <div class="container">
   <div class="card glass article-page">
 
     <!-- 文章标题 -->
-    <h1>Hello World</h1>
+    <h1>Windows毛玻璃效果实现教程</h1>
 
     <!-- 返回按钮 -->
     <a href="articles.html" class="back-btn">← 返回文章列表</a>
 
     <!-- 文章内容（自由写） -->
     <div class="content">
-  <p>下面是毛玻璃核心CSS代码：</p>
+      <p>下面是毛玻璃核心CSS代码：</p>
 
-<pre><code>/* 毛玻璃 */
+      <pre><code>/* 毛玻璃 */
 .glass {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
@@ -100,24 +112,37 @@ h1 {
   transform: translateY(-2px);
   opacity: 0.8;
 }</code></pre>
+    </div>
 
-</div>
   </div>
 </div>
 
-<!-- 暗黑模式脚本（必须有） -->
 <script>
   const btn = document.getElementById('themeBtn');
   const html = document.documentElement;
 
-  btn.addEventListener('click', () => {
-    if (html.getAttribute('data-theme') === 'dark') {
-      html.removeAttribute('data-theme');
-      btn.textContent = '暗黑模式';
+  function updateThemeIcon() {
+    if (html.hasAttribute('data-theme')) {
+      btn.innerHTML = '<i class="fa fa-sun-o"></i>';
     } else {
-      html.setAttribute('data-theme', 'dark');
-      btn.textContent = '浅色模式';
+      btn.innerHTML = '<i class="fa fa-moon-o"></i>';
     }
+  }
+
+  btn.addEventListener('click', () => {
+    html.toggleAttribute('data-theme');
+    updateThemeIcon();
+  });
+
+  updateThemeIcon();
+
+  // Win11 加载动画
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 500);
+    }, 700);
   });
 </script>
 
