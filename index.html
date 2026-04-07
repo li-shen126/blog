@@ -37,7 +37,7 @@
   </div>
   <div class="nav-right">
     <button class="theme-toggle glass" id="themeBtn">
-      <i class="fa fa-moon-o"></i>
+      <i class="fa fa-moon-o" aria-hidden="true"></i>
     </button>
   </div>
 </div>
@@ -66,14 +66,15 @@
 </div>
 
 <script>
+  // 主题切换
   const btn = document.getElementById('themeBtn');
   const html = document.documentElement;
 
   function updateThemeIcon() {
     if (html.hasAttribute('data-theme')) {
-      btn.innerHTML = '<i class="fa fa-sun-o"></i>';
+      btn.innerHTML = '<i class="fa fa-sun-o" aria-hidden="true"></i>';
     } else {
-      btn.innerHTML = '<i class="fa fa-moon-o"></i>';
+      btn.innerHTML = '<i class="fa fa-moon-o" aria-hidden="true"></i>';
     }
   }
 
@@ -81,8 +82,11 @@
     html.toggleAttribute('data-theme');
     updateThemeIcon();
   });
+  
+  // 初始化图标
   updateThemeIcon();
 
+  // 加载动画
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
@@ -91,6 +95,7 @@
     }, 700);
   });
 
+  // 水波纹
   const ripple = document.createElement('div');
   ripple.className = 'ripple';
   document.body.appendChild(ripple);
@@ -101,7 +106,7 @@
     setTimeout(() => ripple.classList.remove('active'), 500);
   });
 
-  // 打字机效果 Yiban
+  // 打字机效果
   const nameEl = document.getElementById('nameText');
   const text = "Yiban";
   let index = 0;
