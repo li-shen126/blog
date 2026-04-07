@@ -5,7 +5,6 @@
   font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
 }
 
-/* Win11 加载动画 */
 .win11-loader {
   position: fixed;
   top: 0;
@@ -31,7 +30,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* 主题变量 */
 :root {
   --bg-url: url("images/bg.jpg");
   --text-color: #ffffff;
@@ -41,7 +39,7 @@
   --nav-bg: rgba(0, 0, 0, 0.25);
 }
 [data-theme="dark"] {
-  --bg-url: url("images/bg.jpg?dark=1");
+  --bg-url: url("images/bg.jpg");
   --text-color: #e0e0e0;
   --card-bg: rgba(0, 0, 0, 0.3);
   --card-border: rgba(255, 255, 255, 0.1);
@@ -63,7 +61,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 导航栏 */
 .navbar {
   position: fixed;
   top: 0;
@@ -79,18 +76,15 @@ body {
   justify-content: space-between;
   padding: 0 20px;
   z-index: 999;
-  flex-wrap: nowrap;
 }
 .nav-logo {
   font-size: 18px;
   font-weight: bold;
   color: var(--text-color);
-  flex-shrink: 0;
 }
 .nav-links {
   display: flex;
   gap: 20px;
-  flex-shrink: 0;
 }
 .nav-links a {
   color: var(--text-color);
@@ -98,14 +92,7 @@ body {
   font-size: 15px;
   transition: 0.18s ease;
 }
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
 
-/* 主题按钮 */
 .theme-toggle {
   width: 36px;
   height: 36px;
@@ -119,10 +106,8 @@ body {
   font-size: 16px;
   cursor: pointer;
   transition: 0.18s ease;
-  flex-shrink: 0;
 }
 
-/* 毛玻璃 */
 .glass {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
@@ -131,138 +116,64 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
-/* ---------------- 核心调整：首页 UI 缩小 ---------------- */
-
-/* 电脑端：保持大尺寸（不变） */
-@media (min-width: 769px) {
-  .container {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  .card {
-    border-radius: 20px;
-    padding: 40px 30px;
-    text-align: center;
-    animation: cardFade 1s 0.3s ease forwards;
-    opacity: 0;
-  }
-  @keyframes cardFade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .avatar img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--card-border);
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    font-size: 26px;
-    margin-bottom: 10px;
-  }
-  .bio {
-    font-size: 16px;
-    opacity: 0.9;
-    margin-bottom: 20px;
-  }
-  .contact {
-    margin: 20px 0;
-    line-height: 1.8;
-    font-size: 15px;
-  }
-
-  .links {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-  .btn {
-    background: var(--btn-bg);
-    color: var(--text-color);
-    padding: 10px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    border: 1px solid var(--card-border);
-    transition: 0.18s ease;
-  }
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.card {
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  animation: cardFade 1s 0.3s ease forwards;
+  opacity: 0;
+}
+@keyframes cardFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* 移动端：统一缩小 UI，与文章页一致 */
-@media (max-width: 768px) {
-  .container {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 15px; /* 减少左右边距 */
-  }
-
-  .card {
-    border-radius: 16px;
-    padding: 25px 20px; /* 缩小内边距 */
-    text-align: center;
-    animation: cardFade 1s 0.3s ease forwards;
-    opacity: 0;
-  }
-  @keyframes cardFade {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .avatar img {
-    width: 90px; /* 缩小头像 */
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--card-border);
-    margin-bottom: 15px;
-  }
-
-  h1 {
-    font-size: 22px; /* 缩小标题 */
-    margin-bottom: 8px;
-  }
-
-  .bio {
-    font-size: 14px; /* 缩小介绍文字 */
-    opacity: 0.9;
-    margin-bottom: 15px;
-  }
-
-  .contact {
-    margin: 15px 0;
-    line-height: 1.7;
-    font-size: 13px; /* 缩小联系方式 */
-  }
-
-  .links {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 15px;
-  }
-
-  .btn {
-    background: var(--btn-bg);
-    color: var(--text-color);
-    padding: 8px 16px; /* 缩小按钮 */
-    border-radius: 10px;
-    text-decoration: none;
-    border: 1px solid var(--card-border);
-    transition: 0.18s ease;
-    font-size: 14px;
-  }
+.avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--card-border);
+  margin-bottom: 20px;
 }
 
-/* 文章 & 归档页风格（保持原样） */
+h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+.bio {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+.contact {
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.btn {
+  background: var(--btn-bg);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid var(--card-border);
+  transition: 0.18s ease;
+}
+
 .article-page {
   text-align: left;
 }
@@ -303,7 +214,6 @@ body {
   transition: 0.18s ease;
 }
 
-/* 文章内容 */
 .content {
   line-height: 1.8;
   font-size: 15px;
@@ -322,17 +232,14 @@ pre code {
   margin: 10px 0;
 }
 
-/* 点击动画 */
 .btn:active,
 .theme-toggle:active,
 .read-btn:active,
-.nav-links a:active,
-.back-btn:active {
+.nav-links a:active {
   transform: scale(0.94);
   opacity: 0.8;
 }
 
-/* 水波纹 */
 .ripple {
   position: fixed;
   width: 10px;
