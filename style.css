@@ -131,67 +131,138 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
-/* 布局 */
-.container {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
-}
-.card {
-  border-radius: 20px;
-  padding: 40px 30px;
-  text-align: center;
-  animation: cardFade 1s 0.3s ease forwards;
-  opacity: 0;
-}
-@keyframes cardFade {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ---------------- 核心调整：首页 UI 缩小 ---------------- */
+
+/* 电脑端：保持大尺寸（不变） */
+@media (min-width: 769px) {
+  .container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .card {
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    animation: cardFade 1s 0.3s ease forwards;
+    opacity: 0;
+  }
+  @keyframes cardFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--card-border);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  .bio {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+  .contact {
+    margin: 20px 0;
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  .links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .btn {
+    background: var(--btn-bg);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 1px solid var(--card-border);
+    transition: 0.18s ease;
+  }
 }
 
-.avatar img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--card-border);
-  margin-bottom: 20px;
+/* 移动端：统一缩小 UI，与文章页一致 */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 15px; /* 减少左右边距 */
+  }
+
+  .card {
+    border-radius: 16px;
+    padding: 25px 20px; /* 缩小内边距 */
+    text-align: center;
+    animation: cardFade 1s 0.3s ease forwards;
+    opacity: 0;
+  }
+  @keyframes cardFade {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .avatar img {
+    width: 90px; /* 缩小头像 */
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--card-border);
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    font-size: 22px; /* 缩小标题 */
+    margin-bottom: 8px;
+  }
+
+  .bio {
+    font-size: 14px; /* 缩小介绍文字 */
+    opacity: 0.9;
+    margin-bottom: 15px;
+  }
+
+  .contact {
+    margin: 15px 0;
+    line-height: 1.7;
+    font-size: 13px; /* 缩小联系方式 */
+  }
+
+  .links {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+
+  .btn {
+    background: var(--btn-bg);
+    color: var(--text-color);
+    padding: 8px 16px; /* 缩小按钮 */
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid var(--card-border);
+    transition: 0.18s ease;
+    font-size: 14px;
+  }
 }
 
-h1 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-.bio {
-  font-size: 16px;
-  opacity: 0.9;
-  margin-bottom: 20px;
-}
-.contact {
-  margin: 20px 0;
-  line-height: 1.6;
-}
-
-/* 按钮 */
-.links {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-.btn {
-  background: var(--btn-bg);
-  color: var(--text-color);
-  padding: 10px 20px;
-  border-radius: 12px;
-  text-decoration: none;
-  border: 1px solid var(--card-border);
-  transition: 0.18s ease;
-}
-
-/* 文章页 */
+/* 文章 & 归档页风格（保持原样） */
 .article-page {
   text-align: left;
 }
@@ -251,7 +322,7 @@ pre code {
   margin: 10px 0;
 }
 
-/* ----------------- 点击动画 ----------------- */
+/* 点击动画 */
 .btn:active,
 .theme-toggle:active,
 .read-btn:active,
