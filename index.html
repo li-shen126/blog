@@ -21,17 +21,7 @@
       animation: blink 1s step-end infinite;
     }
 
-    /* 雪花专用动画 —— 绝对不影响背景 */
-    @keyframes snow-fall {
-      0% {
-        transform: translate3d(0, 0, 0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translate3d(60px, 100vh, 0) rotate(360deg);
-        opacity: 0;
-      }
-    }
+    /* 雪花 —— 完全不会影响页面任何元素 */
     .snowflake {
       position: fixed;
       top: -10px;
@@ -70,8 +60,8 @@
     <h1><span class="typewriter" id="nameText"></span></h1>
     <p class="bio">热爱编程、分享技术与生活</p>
     <div class="contact">
-      <p>邮箱：bxhnmthm@gmail.com</p>
-      <p>微信：BXlishen114514</p>
+      <p>邮箱：bxhnm@gmail.com</p>
+      <p>微信：Yiban_official</p>
     </div>
     <div class="links">
       <a href="https://github.com/li-shen126" target="_blank" class="btn">GitHub</a>
@@ -82,7 +72,6 @@
 </div>
 
 <script>
-// 主题切换
 const btn = document.getElementById('themeBtn');
 const html = document.documentElement;
 
@@ -104,7 +93,6 @@ btn.addEventListener('click', () => {
 });
 updateThemeIcon();
 
-// 加载动画
 window.addEventListener('load', () => {
   setTimeout(() => {
     const loader = document.getElementById('loader');
@@ -113,7 +101,6 @@ window.addEventListener('load', () => {
   }, 700);
 });
 
-// 点击水波纹
 const ripple = document.createElement('div');
 ripple.className = 'ripple';
 document.body.appendChild(ripple);
@@ -124,7 +111,6 @@ document.addEventListener('click', (e) => {
   setTimeout(() => ripple.classList.remove('active'), 500);
 });
 
-// 打字机
 const nameEl = document.getElementById('nameText');
 const text = "Yiban";
 let index = 0;
@@ -139,24 +125,31 @@ function type() {
 }
 setTimeout(type, 600);
 
-// 雪花飘落（完全不影响背景版）
+// 纯JS控制飘落，不使用CSS动画，彻底不影响页面
 function createSnow() {
   const snow = document.createElement('div');
-  snow.classList.add('snowflake');
+  snow.className = 'snowflake';
   snow.textContent = '❄';
 
   const size = Math.random() * 12 + 10;
-  const left = Math.random() * window.innerWidth;
-  const speed = Math.random() * 4 + 6;
+  const startX = Math.random() * window.innerWidth;
+  const speed = Math.random() * 1.5 + 1;
+  let y = -10;
 
-  snow.style.cssText = `
-    font-size: ${size}px;
-    left: ${left}px;
-    animation: snow-fall ${speed}s linear forwards;
-  `;
+  snow.style.fontSize = size + 'px';
+  snow.style.left = startX + 'px';
+  snow.style.top = y + 'px';
 
   document.body.appendChild(snow);
-  setTimeout(() => snow.remove(), speed * 1000);
+
+  const fall = setInterval(() => {
+    y += speed;
+    snow.style.top = y + 'px';
+    if (y > window.innerHeight + 20) {
+      clearInterval(fall);
+      snow.remove();
+    }
+  }, 20);
 }
 
 setInterval(createSnow, 220);
