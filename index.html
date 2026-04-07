@@ -17,20 +17,23 @@
 
 <div class="navbar glass">
   <div class="nav-logo">Yiban的博客</div>
-  
+
   <div class="nav-links">
     <a href="index.html">首页</a>
     <a href="articles.html">文章</a>
     <a href="archive.html">归档</a>
   </div>
 
-  <!-- 右侧：搜索框 左 → 切换按钮 右，强制横向 -->
+  <!-- 右侧：搜索框 (左) + 主题按钮 (右) -->
   <div class="nav-right">
-    <div class="search-box glass">
-      <input type="text" id="searchInput" placeholder="搜索文章...">
-      <i class="fa fa-search"></i>
+    <!-- 搜索框 -->
+    <div class="search-container glass">
+      <input type="text" id="searchInput" placeholder="搜索文章..." autocomplete="off">
+      <button class="search-btn" id="searchBtn"><i class="fa fa-search"></i></button>
     </div>
-    <button class="theme-toggle" id="themeBtn">
+
+    <!-- 主题切换 -->
+    <button class="theme-toggle glass" id="themeBtn">
       <i class="fa fa-moon-o"></i>
     </button>
   </div>
@@ -57,50 +60,92 @@
   </div>
 </div>
 
+<!-- 搜索结果展示区 -->
+<div id="searchResults" class="search-results glass"></div>
+
 <script>
-  // 修复主题切换逻辑，100% 可用
+  // ---------------------- 1. 主题切换 (完全可用) ----------------------
   const btn = document.getElementById('themeBtn');
   const html = document.documentElement;
 
   function updateThemeIcon() {
-    if (html.getAttribute('data-theme') === 'dark') {
+    if (html.hasAttribute('data-theme')) {
       btn.innerHTML = '<i class="fa fa-sun-o"></i>';
     } else {
       btn.innerHTML = '<i class="fa fa-moon-o"></i>';
     }
   }
 
-  // 绑定点击事件，确保触发
   btn.addEventListener('click', () => {
-    if (html.getAttribute('data-theme') === 'dark') {
-      html.removeAttribute('data-theme');
-    } else {
-      html.setAttribute('data-theme', 'dark');
-    }
+    html.toggleAttribute('data-theme');
     updateThemeIcon();
   });
-
-  // 初始化图标
   updateThemeIcon();
 
-  // Win11 加载动画
+  // ---------------------- 2. Win11 加载动画 ----------------------
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
       loader.style.opacity = '0';
       setTimeout(() => loader.style.display = 'none', 500);
-    }, 800);
+    }, 700);
   });
 
-  // 搜索框聚焦/失焦效果（可选，增强交互）
+  // ---------------------- 3. 真实搜索功能 (可搜索文章标题) ----------------------
+  // 你需要在同级目录创建一个 articles.json 存放你的文章数据
+  let articlesData = [];
+
+  // 模拟文章数据（如果没有 articles.json，就用这个）
+  const defaultArticles = [
+    { title: "Windows 11 毛玻璃博客搭建教程", content: "本文详细介绍如何使用 HTML CSS 打造 Windows 11 风格的个人博客..." },
+    { title: "JavaScript 前端搜索功能实现", content: "纯前端实现文章搜索，支持模糊匹配、忽略大小写..." },
+    { title: "Flex 布局彻底搞定导航栏", content: "Flex 是现代布局的核心，一文带你理解 Flex 导航栏的所有细节..." },
+  ];
+
+  // 尝试加载本地 JSON（如果不存在就用默认数据）
+  fetch('articles.json')
+    .then(res => res.json())
+    .then(data => {
+      articlesData = data;
+    })
+    .catch(() => {
+      console.log("未检测到 articles.json，使用默认文章数据");
+      articlesData = defaultArticles;
+    });
+
+  // 搜索逻辑
   const searchInput = document.getElementById('searchInput');
-  const searchBox = document.querySelector('.search-box');
-  searchInput.addEventListener('focus', () => {
-    searchBox.style.transform = 'scale(1.02)';
-  });
-  searchInput.addEventListener('blur', () => {
-    searchBox.style.transform = 'scale(1)';
-  });
+  const searchResults = document.getElementById('searchResults');
+
+  function performSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    searchResults.innerHTML = '';
+
+    if (!query) return;
+
+    const results = articlesData.filter(article =>
+      article.title.toLowerCase().includes(query) ||
+      article.content.toLowerCase().includes(query)
+    );
+
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="result-item">未找到相关文章</div>';
+      return;
+    }
+
+    results.forEach(article => {
+      searchResults.innerHTML += `
+        <div class="result-item glass">
+          <h3>${article.title}</h3>
+          <p>${article.content.substring(0, 100)}...</p>
+        </div>
+      `;
+    });
+  }
+
+  // 绑定搜索事件
+  searchInput.addEventListener('input', performSearch);
+  document.getElementById('searchBtn').addEventListener('click', performSearch);
 </script>
 
 </body>
