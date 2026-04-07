@@ -6,7 +6,21 @@
   <title>Yiban 的 blog</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .typewriter {
+      display: inline-block;
+      border-right: 3px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    .typewriter.blinking {
+      animation: blink 1s step-end infinite;
+    }
+  </style>
 </head>
 <body>
 
@@ -33,7 +47,9 @@
     <div class="avatar">
       <img src="images/favicon.png" alt="头像">
     </div>
-    <h1>Yiban</h1>
+
+    <h1><span class="typewriter" id="nameText"></span></h1>
+
     <p class="bio">热爱编程、分享技术与生活</p>
 
     <div class="contact">
@@ -75,7 +91,6 @@
     }, 700);
   });
 
-  // 点击水波纹动画
   const ripple = document.createElement('div');
   ripple.className = 'ripple';
   document.body.appendChild(ripple);
@@ -85,6 +100,23 @@
     ripple.classList.add('active');
     setTimeout(() => ripple.classList.remove('active'), 500);
   });
+
+  // 打字机效果 Yiban
+  const nameEl = document.getElementById('nameText');
+  const text = "Yiban";
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      nameEl.textContent += text.charAt(index);
+      index++;
+      setTimeout(type, 150);
+    } else {
+      nameEl.classList.add('blinking');
+    }
+  }
+
+  setTimeout(type, 600);
 </script>
 
 </body>
