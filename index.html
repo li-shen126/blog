@@ -35,11 +35,9 @@
     <a href="articles.html">文章</a>
     <a href="archive.html">归档</a>
   </div>
-  <div class="nav-right">
-    <button class="theme-toggle glass" id="themeBtn">
-      <i class="fa fa-moon-o" aria-hidden="true"></i>
-    </button>
-  </div>
+  <button class="theme-toggle" id="themeBtn">
+    <i class="fa fa-moon-o"></i>
+  </button>
 </div>
 
 <div class="container">
@@ -66,27 +64,24 @@
 </div>
 
 <script>
-  // 主题切换
   const btn = document.getElementById('themeBtn');
   const html = document.documentElement;
 
-  function updateThemeIcon() {
+  function updateTheme() {
     if (html.hasAttribute('data-theme')) {
-      btn.innerHTML = '<i class="fa fa-sun-o" aria-hidden="true"></i>';
+      btn.innerHTML = '<i class="fa fa-sun-o"></i>';
     } else {
-      btn.innerHTML = '<i class="fa fa-moon-o" aria-hidden="true"></i>';
+      btn.innerHTML = '<i class="fa fa-moon-o"></i>';
     }
   }
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', function () {
     html.toggleAttribute('data-theme');
-    updateThemeIcon();
+    updateTheme();
   });
-  
-  // 初始化图标
-  updateThemeIcon();
 
-  // 加载动画
+  updateTheme();
+
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
@@ -95,7 +90,6 @@
     }, 700);
   });
 
-  // 水波纹
   const ripple = document.createElement('div');
   ripple.className = 'ripple';
   document.body.appendChild(ripple);
@@ -106,7 +100,6 @@
     setTimeout(() => ripple.classList.remove('active'), 500);
   });
 
-  // 打字机效果
   const nameEl = document.getElementById('nameText');
   const text = "Yiban";
   let index = 0;
