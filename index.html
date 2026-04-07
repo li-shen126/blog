@@ -117,52 +117,53 @@
   setTimeout(type, 600);
 </script>
 
-<!-- 雪花飘落特效 -->
+<!-- 稳定雪花特效 - 不影响任何页面元素 -->
 <style>
-.snow {
+.snowflake {
   position: fixed;
-  top: -10px;
+  top: -8px;
   z-index: 9999;
-  color: #fff;
   pointer-events: none;
   user-select: none;
-  animation: snowfall linear infinite;
-}
-@keyframes snowfall {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(100px, 100vh) rotate(360deg);
-    opacity: 0;
-  }
+  color: rgba(255, 255, 255, 0.85);
 }
 </style>
 
 <script>
 function createSnow() {
-  const snow = document.createElement('div');
-  snow.className = 'snow';
-  snow.innerText = '❄';
-  // 随机大小、位置、时长
-  const size = Math.random() * 10 + 10;
-  const left = Math.random() * window.innerWidth;
-  const duration = Math.random() * 3 + 5;
+  let f = document.createElement('div');
+  f.className = 'snowflake';
+  f.textContent = '❄';
 
-  snow.style.fontSize = size + 'px';
-  snow.style.left = left + 'px';
-  snow.style.animationDuration = duration + 's';
+  // 随机大小
+  let size = Math.random() * 12 + 10;
+  f.style.fontSize = size + 'px';
 
-  document.body.appendChild(snow);
+  // 随机水平位置
+  f.style.left = Math.random() * window.innerWidth + 'px';
 
-  // 动画结束移除
+  // 随机飘落速度
+  let duration = Math.random() * 4 + 6;
+  f.style.animation = `snowfall_${Math.random().toString(36).slice(2)} ${duration}s linear forwards`;
+
+  let style = document.createElement('style');
+  let animName = f.style.animation.split(' ')[0];
+  style.textContent = `
+    @keyframes ${animName} {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+  document.body.appendChild(f);
+
   setTimeout(() => {
-    snow.remove();
+    f.remove();
+    style.remove();
   }, duration * 1000);
 }
 
-// 持续生成雪花
+// 每200ms一片雪花
 setInterval(createSnow, 200);
 </script>
 
