@@ -21,7 +21,17 @@
       animation: blink 1s step-end infinite;
     }
 
-    /* 雪花飘落动画 */
+    /* 雪花专用动画 —— 绝对不影响背景 */
+    @keyframes snow-fall {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(60px, 100vh, 0) rotate(360deg);
+        opacity: 0;
+      }
+    }
     .snowflake {
       position: fixed;
       top: -10px;
@@ -29,16 +39,6 @@
       color: rgba(255,255,255,0.9);
       pointer-events: none;
       user-select: none;
-    }
-    @keyframes snowfall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(calc(100vh + 20px)) rotate(360deg);
-        opacity: 0;
-      }
     }
   </style>
 </head>
@@ -70,8 +70,8 @@
     <h1><span class="typewriter" id="nameText"></span></h1>
     <p class="bio">热爱编程、分享技术与生活</p>
     <div class="contact">
-      <p>邮箱：bxhnm@gmail.com</p>
-      <p>微信：Yiban_official</p>
+      <p>邮箱：bxhnmthm@gmail.com</p>
+      <p>微信：BXlishen114514</p>
     </div>
     <div class="links">
       <a href="https://github.com/li-shen126" target="_blank" class="btn">GitHub</a>
@@ -82,6 +82,7 @@
 </div>
 
 <script>
+// 主题切换
 const btn = document.getElementById('themeBtn');
 const html = document.documentElement;
 
@@ -103,6 +104,7 @@ btn.addEventListener('click', () => {
 });
 updateThemeIcon();
 
+// 加载动画
 window.addEventListener('load', () => {
   setTimeout(() => {
     const loader = document.getElementById('loader');
@@ -111,6 +113,7 @@ window.addEventListener('load', () => {
   }, 700);
 });
 
+// 点击水波纹
 const ripple = document.createElement('div');
 ripple.className = 'ripple';
 document.body.appendChild(ripple);
@@ -121,6 +124,7 @@ document.addEventListener('click', (e) => {
   setTimeout(() => ripple.classList.remove('active'), 500);
 });
 
+// 打字机
 const nameEl = document.getElementById('nameText');
 const text = "Yiban";
 let index = 0;
@@ -135,25 +139,27 @@ function type() {
 }
 setTimeout(type, 600);
 
-// 雪花飘落
+// 雪花飘落（完全不影响背景版）
 function createSnow() {
   const snow = document.createElement('div');
-  snow.className = 'snowflake';
+  snow.classList.add('snowflake');
   snow.textContent = '❄';
 
   const size = Math.random() * 12 + 10;
   const left = Math.random() * window.innerWidth;
-  const dur = Math.random() * 4 + 6;
+  const speed = Math.random() * 4 + 6;
 
-  snow.style.fontSize = size + 'px';
-  snow.style.left = left + 'px';
-  snow.style.animation = `snowfall ${dur}s linear forwards`;
+  snow.style.cssText = `
+    font-size: ${size}px;
+    left: ${left}px;
+    animation: snow-fall ${speed}s linear forwards;
+  `;
 
   document.body.appendChild(snow);
-  setTimeout(() => snow.remove(), dur * 1000);
+  setTimeout(() => snow.remove(), speed * 1000);
 }
-setInterval(createSnow, 200);
-</script>
 
+setInterval(createSnow, 220);
+</script>
 </body>
 </html>
