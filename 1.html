@@ -9,12 +9,10 @@
 </head>
 <body>
 
-<!-- Win11 加载动画 -->
 <div class="win11-loader" id="loader">
   <div class="win11-spinner"></div>
 </div>
 
-<!-- 导航栏 -->
 <div class="navbar glass">
   <div class="nav-logo">Yiban的博客</div>
   <div class="nav-links">
@@ -22,7 +20,6 @@
     <a href="articles.html">文章</a>
     <a href="archive.html">归档</a>
   </div>
-
   <div class="nav-right">
     <button class="theme-toggle glass" id="themeBtn">
       <i class="fa fa-moon-o"></i>
@@ -32,22 +29,15 @@
 
 <div class="container">
   <div class="card glass article-page">
-
-    <!-- 文章标题 -->
     <h1>Hello World</h1>
-
-    <!-- 返回按钮 -->
     <a href="articles.html" class="back-btn">← 返回文章列表</a>
 
-    <!-- 文章内容（自由写） -->
     <div class="content">
       <p>这是我的第n个博客 之前尝试过很多的无脑建站工具 但是都不如自己写一个</p>
-      
       <p>这个博客源码我已经开源 想下载的话可以去我的github主页下载 记得点个star哦</p>
       <p>本博客部署于cloudflare pages 想要建同款博客的可以看我bilibili视频或者微信联系我</p>
       <img src="images/favicon.png" style="width:100%;border-radius:12px;margin:20px 0;">
     </div>
-
   </div>
 </div>
 
@@ -67,16 +57,24 @@
     html.toggleAttribute('data-theme');
     updateThemeIcon();
   });
-
   updateThemeIcon();
 
-  // Win11 加载动画
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
       loader.style.opacity = '0';
       setTimeout(() => loader.style.display = 'none', 500);
     }, 700);
+  });
+
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple';
+  document.body.appendChild(ripple);
+  document.addEventListener('click', (e) => {
+    ripple.style.left = e.clientX + 'px';
+    ripple.style.top = e.clientY + 'px';
+    ripple.classList.add('active');
+    setTimeout(() => ripple.classList.remove('active'), 500);
   });
 </script>
 
